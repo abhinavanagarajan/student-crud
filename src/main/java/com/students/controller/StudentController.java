@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -52,6 +53,18 @@ public class StudentController {
         } else {
             return ResponseEntity.notFound().build();
         }
-}
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Student> patchStudent(@PathVariable Long id, @RequestBody Student partialStudent) {
+        Student student = service.patch(id, partialStudent);
+        if (student != null) {
+            return ResponseEntity.ok(student);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
 }
+
+

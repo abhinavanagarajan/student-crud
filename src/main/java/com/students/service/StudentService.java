@@ -41,5 +41,23 @@ public class StudentService {
                 })
                 .orElse(null);
     }
+
+    public Student patch(Long id, Student partialStudent) {
+        return repo.findById(id)
+                .map(student -> {
+                    if (partialStudent.getName() != null) {
+                        student.setName(partialStudent.getName());
+                    }
+                    if (partialStudent.getEmail() != null) {
+                        student.setEmail(partialStudent.getEmail());
+                    }
+                    if (partialStudent.getAge() > 0) { 
+                        student.setAge(partialStudent.getAge());
+                    }
+                    return repo.save(student); 
+                })
+                .orElse(null);
+    }
+    
     
 }
